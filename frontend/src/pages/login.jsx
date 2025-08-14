@@ -1,8 +1,35 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import {MessageSquare} from 'lucide-react'
+import { MessageSquare } from 'lucide-react'
+import { useState } from 'react';
+import axios from 'axios';
 const Login = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault()
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/login`,
+        {
+          email, password
+        },
+        {
+          withCredentials: true
+        }
+      )
+      const role = res.data.message.user.role;
+      // console.log(res.data)
+      if (role === "teacher") {
+        navigate('/teacher-dashboard/profile')
+      } else if (role === "student") {
+        navigate('/student-dashboard/profile')
+      }
+    } catch (error) {
+      console.log("login failed in frontend", error)
+    }
+  }
   return (
     <div className='flex items-center justify-center h-screen w-full '>
 
@@ -31,18 +58,32 @@ const Login = () => {
 
       <div className="login-form w-[50%] flex flex-col items-center justify-center gap-4">
         <h1 className='text-6xl font-bold text-blue-600 pb-12 font-serif'>Login</h1>
-        <form className='flex flex-col items-center justify-center w-full'>
-          <input className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-[50%] mb-3' type="text" placeholder="Username" />
-          <input className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-[50%]' type="password" placeholder="Password" />
+        <form
+          onSubmit={onSubmitHandler}
+          className='flex flex-col items-center justify-center w-full'>
+          <input
+            className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-[50%] mb-3'
+            type="text"
+            placeholder=" email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)} />
+
+          <input
+            className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-[50%]'
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <button className='text-start w-[50%] text-blue-800 cursor-pointer hover:underline text-sm'>Forget password</button>
-          <button 
-          className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-2 text-lg cursor-pointer rounded-md mt-4"
-          type="submit">Login</button>
+          <button
+            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-2 text-lg cursor-pointer rounded-md mt-4"
+            type="submit">Login</button>
         </form>
         <p className='w-[50%] text-sm'>
           <span>If you don't register yet,</span>
           <button
-          className='text-blue-600 cursor-pointer hover:underline'
+            className='text-blue-600 cursor-pointer hover:underline'
             onClick={() => navigate('/registration')}
           >Register Now</button>
         </p>

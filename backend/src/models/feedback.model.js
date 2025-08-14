@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const feedbackSchema = new Schema({
-    questionID: {
+    questionId: {
         type: Schema.Types.ObjectId,
         ref: "Question"
     },
@@ -11,7 +11,7 @@ const feedbackSchema = new Schema({
         max: 5,
         required :true
     },
-    StudentID: {
+    StudentId: {
         type :Schema.Types.ObjectId,
         ref: "User"
     }

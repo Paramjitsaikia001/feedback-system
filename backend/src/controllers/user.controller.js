@@ -118,7 +118,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        secure: false
     }
 
     return res
@@ -136,7 +136,27 @@ const loginUser = asyncHandler(async (req, res) => {
         )
 })
 
+const getCurrentUser = asyncHandler(async(req,res)=>{
+    //steps i will follow
+    /*
+    1. get the user info from user req.user.id 
+    2.validation the user
+    */
+
+    const user = await User.findById(req.user._id).select("-password -refreshToken")
+
+    console.log(user)
+
+    if(!user){
+        throw new ApiError(404,"User not found")
+    }
+
+    return res.status(200).json(
+        new apiResponse(200,user,"get the current user")
+    )
+})
 export default {
     RegisterUser,
-    loginUser
+    loginUser,
+    getCurrentUser
 }

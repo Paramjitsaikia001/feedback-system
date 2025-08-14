@@ -36,10 +36,6 @@ required:true,
         enum: ['student', 'teacher', 'admin'],
         default: 'student'
     },
-    isVerified: {
-        type: Boolean,
-        default: false
-    },
     refreshToken: {
         type: String
     }

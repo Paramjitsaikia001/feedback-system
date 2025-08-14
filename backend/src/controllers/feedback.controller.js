@@ -7,10 +7,11 @@ import apiResponse from "../utils/apiResponse.js";
 export const submitFeedback = asynHandler(async (req, res) => {
 
     //taking the enitis from the req.body
-    const { studentId, questionId, rating } = req.body
+    const { questionId, rating } = req.body
+    const studentId = req.user._id;
 
     //checking is it empty
-    if (!studentId || !questionId || !rating) {
+    if (!questionId || !rating) {
         throw new ApiError(400, "missing required fields")
     }
 
@@ -42,3 +43,45 @@ export const submitFeedback = asynHandler(async (req, res) => {
 
 
 })
+
+
+export const getFeedbackStats = asynHandler(async (req, res) => {
+  const perQuestion = await Question.aggregate([
+    {
+      $lookup: {
+        from: "feedbacks", // collection name in MongoDB
+        localField: "_id",
+        foreignField: "questionId",
+        as: "feedbacks"
+      }
+    },
+    {
+      $project: {
+        _id: 1,
+        questionText: "$tittle",
+        totalResponses: { $size: "$feedbacks" },
+        avgRating: {
+          $cond: [
+            { $gt: [{ $size: "$feedbacks" }, 0] },
+            { $avg: "$feedbacks.rating" },
+            0
+          ]
+        }
+      }
+    }
+  ]);
+
+  const ratingDistribution = await Feedback.aggregate([
+    {
+      $group: {
+        _id: "$rating",
+        count: { $sum: 1 }
+      }
+    }
+  ]);
+
+  res.json({
+    perQuestion,
+    ratingDistribution
+  });
+});
