@@ -2,6 +2,25 @@
 
 An end-to-end feedback platform where students submit feedback and teachers view analytics. The project is split into a Node/Express/MongoDB backend and a React (Vite) frontend. Authentication uses JWT with httpOnly cookies. Role-Based Access Control (RBAC) is used via user roles (student, teacher, admin) to drive UI access and can be enforced at the API level.
 
+## Project Objective
+
+The purpose of this project is to design an interactive feedback system to collect and analyze student responses for teachers using the proposed Quantself VR system for STEM online learning.
+
+Key highlights:
+
+- **Teachers Involved:** 40 STEM teachers across various disciplines.
+- **Student Participation:** Around 900 students actively providing feedback.
+- **Feedback Focus:** Evaluation of the Quantself VR system in terms of:
+  - Engagement and interactivity
+  - Clarity of content delivery
+  - Effectiveness of virtual learning environment
+  - Usability and overall learning experience
+- **System Features:** 
+  - Students can submit feedback on predefined questions.
+  - Teachers can view aggregated feedback and analytics through dashboards.
+  - Helps in improving content delivery and identifying areas of improvement.
+- **Outcome:** Demonstrates a scalable system capable of handling large student participation while providing meaningful insights to educators.
+
 ## Features
 
 - Authentication with JWT (httpOnly cookies)
@@ -169,9 +188,6 @@ Base URL: `http://localhost:3000/api/v1`
   - Body: `{ tittle }`
   - Response: created question
 
-- GET `/questions`
-  - Response: array of questions (most recent first)
-
 ### Feedback
 
 - POST `/feedback` (Protected)
@@ -236,5 +252,3 @@ curl -b cookies.txt http://localhost:3000/api/v1/feedback/statistics
 ## License
 
 This project is provided as-is. Add a license here if needed.
-
-

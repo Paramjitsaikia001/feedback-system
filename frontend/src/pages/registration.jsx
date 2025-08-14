@@ -1,41 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 import { MessageSquare } from 'lucide-react'
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 const Registration = () => {
     const navigate =useNavigate()
+
+    const [email, setEmail] = useState("");
+    const [fullname, setFullname] = useState("");
+    const [universityName, setUniversityName] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [role, setRole] = useState("student");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+        try {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/register`, {
+                email,
+                fullname,
+                universityName,
+                password,
+                role
+            });
+            navigate("/login");
+        } catch (error) {
+            console.error(error);
+            alert("Registration failed. Please try again.");
+        }
+    };
+
     return (
         <section className="flex items-center justify-center h-screen w-full ">
             <div className="registration-form w-[50%] flex flex-col items-center justify-center">
                 <h1 className='text-6xl font-bold text-blue-600 pb-12 font-serif'>Registration</h1>
-                <form className='flex flex-col items-center justify-center w-full'>
+                <form className='flex flex-col items-center justify-center w-full' onSubmit={handleSubmit}>
                     <div className="email flex flex-col w-full items-center">
                         <label className="w-[50%] text-gray-700 font-semibold" htmlFor="email">email Id :</label>
                         <div className="email-verification w-[50%] items-center flex justify-center mb-3 gap-1">
-                            <input className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-full ' type="text" name="fullname" id="" placeholder="Enter Email Id" />
+                            <input className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-full ' type="text" name="email" id="" placeholder="Enter Email Id" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </div>
                     </div>
                     <div className="fullname flex flex-col w-full items-center">
-                        <label className="w-[50%] text-gray-700 font-semibold" htmlFor="email">Fullname :</label>
-                        <input className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-[50%] mb-3' type="text" name="fullname" id="" placeholder="Full Name" />
+                        <label className="w-[50%] text-gray-700 font-semibold" htmlFor="fullname">Fullname :</label>
+                        <input className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-[50%] mb-3' type="text" name="fullname" id="" placeholder="Full Name" value={fullname} onChange={(e) => setFullname(e.target.value)} />
                     </div>
                     <div className="universityName flex flex-col w-full items-center">
-                        <label className="w-[50%] text-gray-700 font-semibold" htmlFor="email">Name of University/School:</label>
-                        <input className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-[50%] mb-3' type="text" name="fullname" id="" placeholder="Name of University/School" />
+                        <label className="w-[50%] text-gray-700 font-semibold" htmlFor="universityName">Name of University/School:</label>
+                        <input className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-[50%] mb-3' type="text" name="universityName" id="" placeholder="Name of University/School" value={universityName} onChange={(e) => setUniversityName(e.target.value)} />
                     </div>
 
                     <div className="password flex flex-col w-full items-center">
-                        <label className="w-[50%] text-gray-700 font-semibold" htmlFor="email">Set Password:</label>
-                        <input className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-[50%] mb-3' type="text" name="fullname" id="" placeholder="Set password" />
+                        <label className="w-[50%] text-gray-700 font-semibold" htmlFor="password">Set Password:</label>
+                        <input className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-[50%] mb-3' type="password" name="password" id="" placeholder="Set password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </div>
 
                     <div className="password flex flex-col w-full items-center">
-                        <label className="w-[50%] text-gray-700 font-semibold" htmlFor="email">Confirm Password:</label>
-                        <input className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-[50%] mb-3' type="text" name="fullname" id="" placeholder="Confirm password" />
+                        <label className="w-[50%] text-gray-700 font-semibold" htmlFor="confirmPassword">Confirm Password:</label>
+                        <input className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-[50%] mb-3' type="password" name="confirmPassword" id="" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                     </div>
 
                     <div className="role flex flex-col w-full items-center">
-                        <label className="w-[50%] text-gray-700 font-semibold" htmlFor="email">Role:</label>
-                        <select className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-[50%] mb-3' name="role" id="role">
+                        <label className="w-[50%] text-gray-700 font-semibold" htmlFor="role">Role:</label>
+                        <select className='border-2 border-gray-300 rounded-md px-2 py-3 h-12 w-[50%] mb-3' name="role" id="role" value={role} onChange={(e) => setRole(e.target.value)}>
                             <option value="student">Student</option>
                             <option value="teacher">Teacher</option>
                         </select>

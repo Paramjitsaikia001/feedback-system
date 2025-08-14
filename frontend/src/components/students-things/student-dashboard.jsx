@@ -44,6 +44,158 @@ const StudentDashboard = () => {
         {
             name: "Rahul Sharma",
             subject: "Physics"
+        },
+        {
+            name: "Emily Clark",
+            subject: "Biology"
+        },
+        {
+            name: "Michael Brown",
+            subject: "Chemistry"
+        },
+        {
+            name: "Sophia Turner",
+            subject: "English Literature"
+        },
+        {
+            name: "Daniel Wilson",
+            subject: "History"
+        },
+        {
+            name: "Olivia Martinez",
+            subject: "Geography"
+        },
+        {
+            name: "James Anderson",
+            subject: "Physical Education"
+        },
+        {
+            name: "Isabella Thomas",
+            subject: "Art"
+        },
+        {
+            name: "Benjamin Lee",
+            subject: "Music"
+        },
+        {
+            name: "Mia Harris",
+            subject: "Economics"
+        },
+        {
+            name: "Alexander Walker",
+            subject: "Philosophy"
+        },
+        {
+            name: "Charlotte Young",
+            subject: "Sociology"
+        },
+        {
+            name: "Ethan King",
+            subject: "Political Science"
+        },
+        {
+            name: "Amelia Scott",
+            subject: "Psychology"
+        },
+        {
+            name: "Jacob Green",
+            subject: "Statistics"
+        },
+        {
+            name: "Harper Adams",
+            subject: "Environmental Science"
+        },
+        {
+            name: "William Baker",
+            subject: "Business Studies"
+        },
+        {
+            name: "Ella Nelson",
+            subject: "Drama"
+        },
+        {
+            name: "David Carter",
+            subject: "French"
+        },
+        {
+            name: "Lily Mitchell",
+            subject: "Spanish"
+        },
+        {
+            name: "Joseph Perez",
+            subject: "German"
+        },
+        {
+            name: "Grace Roberts",
+            subject: "Latin"
+        },
+        {
+            name: "Samuel Phillips",
+            subject: "Computer Engineering"
+        },
+        {
+            name: "Zoe Campbell",
+            subject: "Astronomy"
+        },
+        {
+            name: "Matthew Evans",
+            subject: "Law"
+        },
+        {
+            name: "Victoria Collins",
+            subject: "Anthropology"
+        },
+        {
+            name: "Andrew Stewart",
+            subject: "Architecture"
+        },
+        {
+            name: "Natalie Morris",
+            subject: "Journalism"
+        },
+        {
+            name: "Christopher Rogers",
+            subject: "Graphic Design"
+        },
+        {
+            name: "Hannah Reed",
+            subject: "Marketing"
+        },
+        {
+            name: "Joshua Cook",
+            subject: "Accounting"
+        },
+        {
+            name: "Samantha Morgan",
+            subject: "Linguistics"
+        },
+        {
+            name: "Ryan Bell",
+            subject: "Engineering"
+        },
+        {
+            name: "Madison Murphy",
+            subject: "Nursing"
+        },
+        {
+            name: "Nicholas Bailey",
+            subject: "Medicine"
+        },
+        {
+            name: "Avery Rivera",
+            subject: "Dentistry"
+        },
+        {
+            name: "Tyler Cooper",
+            subject: "Pharmacy"
+        },
+        {
+            name: "Chloe Richardson",
+            subject: "Veterinary Science"
+        },
+        {
+            name: "Brandon Cox",
+            subject: "Mathematics"
         }
     ]
     return (
@@ -53,9 +205,9 @@ const StudentDashboard = () => {
                 <Left_Navbar />
                 <div className='w-[80%]'>
 
-                    <div className="studetn-details w-full h-full border-b-1 border-[#8aa6fc]">
+                    <div className="studetn-details w-full h-full">
 
-                        <div className="header h-[25%] w-full bg-[#8aa6fc] flex justify-end items-end pb-4 pr-4">
+                        <div className="header h-[15rem] w-full bg-[#8aa6fc] flex justify-end items-end pb-4 pr-4">
                             <h1 className='py-2 px-4 border-1 border-black rounded-full w-[20%] text-center'>{role}</h1>
 
                         </div>
@@ -72,12 +224,13 @@ const StudentDashboard = () => {
                             <h2>{email}</h2>
                             <p className='text-3xl font-extralight mt-2'>{universityName}</p>
                         </div>
-                        <div className="give-feedback my-12 flex flex-wrap justify-evenly ">
+                        <h1 className='text-4xl mt-16 ml-6 border-b-1 border-[#8b8b8b]'>Give Feedback For</h1>
+                        <div className="give-feedback my-12 flex flex-wrap justify-evenly items-start">
                             {
                                 teacher.map((t, index) => (
                                     <div
                                         key={index}
-                                        className="teacher-one border-1 border-[#8aa6fc] py-12 px-8 rounded-lg">
+                                        className="teacher-one border-1 border-[#8b8b8b] py-12 px-8 rounded-lg my-8 ">
 
                                         <h1 className='text-2xl font-semibold'>{t.name}</h1>
                                         <h3 className='text-xl '>Subject teacher : {t.subject}</h3>
